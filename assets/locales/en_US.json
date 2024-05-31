@@ -1,0 +1,20 @@
+{
+  "on_boarding": {
+    "1": {
+      "title": "Find home services near you",
+      "desc": "Choose from a range of services such as makeup, hair, heena and nails!"
+    },
+    "2": {
+      "title": "Book through the App",
+      "desc": "Book a time slot for the service you require, make any payments where applicable and you are ready to go!"
+    },
+    "3": {
+      "title": "For both clients and business",
+      "desc": "Whether you are looking for a service or promoting your home business, we have options for everyone!"
+    },
+    "btn": "Get Started"
+  },
+  "role": {
+    "select_country": "Select your country and add your location"
+  }
+}

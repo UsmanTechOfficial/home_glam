@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "513869729466",
+    "project_id": "fyp-m-s-1c9c0",
+    "storage_bucket": "fyp-m-s-1c9c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513869729466:android:1bbe422cae300a51f37c83",
+        "android_client_info": {
+          "package_name": "com.usmantech.home_glam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtNtQbHZDJXi7F34VEzxoXT7u7Hrs0270"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

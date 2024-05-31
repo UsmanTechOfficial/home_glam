@@ -1,0 +1,52 @@
+name: home_glam
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.4.0 <4.0.0'
+
+
+dependencies: 
+  cupertino_icons: ^1.0.8
+  get: ^4.6.6
+  flutter_svg: ^2.0.10+1
+  google_fonts: ^6.2.1
+  dartx: ^1.2.0
+  firebase_auth: ^4.20.0
+  firebase_core: ^2.32.0
+  cloud_firestore: ^4.17.5
+  url_launcher: ^6.2.6
+  get_storage: ^2.1.1
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.13.1
+  build_runner: ^2.4.10
+  flutter_gen_runner: ^5.5.0+1
+  flutter_test: 
+    sdk: flutter
+
+flutter_launcher_icons: 
+  android: ic_launcher
+  image_path: assets/launcher_icon/ic_launcher.png
+  ios: true
+  remove_alpha_ios: true
+  min_sdk_android: 21
+
+flutter_gen: 
+  output: lib/gen_assets
+  integrations: 
+    flutter_svg: true
+  line_length: 80
+
+
+
+flutter: 
+  assets: 
+    - assets/images/
+    - assets/icons/
+    - assets/launcher_icon/
+  uses-material-design: true
+
