@@ -12,7 +12,6 @@ import '../../../../shared_widget/button/elevated_btn.dart';
 import '../../../../shared_widget/text/apptext.dart';
 import '../../../../shared_widget/text/glam_title.dart';
 import '../../../../shared_widget/text_form_field/label_textfield.dart';
-import '../../../core/db/local_storage/auth_local_storage.dart';
 import '../../../routes/app_pages.dart';
 
 class SignUpView extends GetView<SignUpController> {
@@ -118,9 +117,8 @@ class SignUpView extends GetView<SignUpController> {
                       padTop: mHeight(context) * 0.05,
                       title: "Sign Up",
                       onPressed: () {
-                        final gs = Get.find<AuthLocalStorage>();
-                        gs.getUserInfo();
-
+                        // final gs = Get.find<AuthLocalStorage>();
+                        // gs.getUserInfo();
                         if (controller.formKey.currentState!.validate()) {
                           final userInfo = UserInfoModel(
                             name: controller.nameController.text.trim(),

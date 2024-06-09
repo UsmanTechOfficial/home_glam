@@ -17,13 +17,18 @@ class EmailVerifyController extends GetxController {
       ever(isVerified, (value) async {
         if (value == true) {
           final result = await _emailVerifyRepository.storeVerification(value);
-          if (result) _registerUserToFireStore();
+          if (result) await _registerUserToFireStore();
         }
       });
     } finally {}
   }
 
-  _registerUserToFireStore() async {}
+  _registerUserToFireStore() async {
+    try {
+      _emailVerifyRepository.registerUserToFireStore();
+      return;
+    } finally {}
+  }
 }
 
 // isVerified.listen(

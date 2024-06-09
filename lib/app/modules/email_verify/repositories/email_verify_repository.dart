@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart' show Icons;
 import 'package:get/get.dart';
+import 'package:home_glam/app/core/exceptions/firestore_excaptions.dart';
 import 'package:home_glam/app/modules/email_verify/services/email_verify_service.dart';
+import 'package:home_glam/utils/logger.dart';
 
 import '../../../../utils/custom_snackbar.dart';
 import '../../../core/db/local_storage/auth_local_storage.dart';
-import '../../../core/exceptions/app_exceptions.dart';
+import '../../../core/exceptions/auth_excaption.dart';
 
 class EmailVerifyRepository {
   final EmailVerifyService _emailVerifyService;
@@ -28,6 +31,7 @@ class EmailVerifyRepository {
     try {
       _emailVerifyService.checkVerification();
     } catch (e) {
+      Logger.e(e);
       CSnackBar.show("Verification Failed");
     }
   }
@@ -37,7 +41,7 @@ class EmailVerifyRepository {
       await _emailVerifyService.storeVerification(value);
       return true;
     } catch (e) {
-      print(e.toString());
+      Logger.e(e);
       return false;
     }
   }
@@ -46,12 +50,22 @@ class EmailVerifyRepository {
     try {
       final authStorage = Get.find<AuthLocalStorage>();
       final userInfo = await authStorage.getUserInfo();
+
       final result =
-          await _emailVerifyService.registerUserToFireStore(userInfo);
+          await _emailVerifyService.registerUserToFireStore(userInfo!);
+
+      if (result.isEqual(200)) {
+        CSnackBar.show("User Registration Successful", icon: Icons.check);
+      }
 
       // if (result) Get.offAllNamed(Routes.ONBOARDING);
     } catch (e) {
-      CSnackBar.show("User registration failed");
+      if (e is CloudStorageException) {
+        CSnackBar.show(e.message.toString(), icon: e.icon);
+      } else {
+        Logger.e("Cloud Storage exception: $e");
+        CSnackBar.show("User Registration Failed");
+      }
     }
   }
 }

@@ -3,12 +3,15 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:home_glam/app/core/exceptions/firestore_excaptions.dart';
 import 'package:home_glam/app/core/url_launcher/gmail_launcher.dart';
 import 'package:home_glam/app/modules/auth/models/user_info_model.dart';
 import 'package:home_glam/app/modules/email_verify/controllers/email_verify_controller.dart';
 
+import '../../../core/db/firestore/auth_firestore.dart';
 import '../../../core/db/local_storage/auth_local_storage.dart';
 import '../../../core/exceptions/app_exceptions.dart';
+import '../../../core/exceptions/auth_excaption.dart';
 
 class EmailVerifyService extends GetxService {
   Future<void> sendVerification({required User user}) async {
@@ -45,9 +48,16 @@ class EmailVerifyService extends GetxService {
     }
   }
 
-  Future<void> registerUserToFireStore(UserInfoModel userInfo) async {
-    try {} on FirebaseException catch (e) {
-    } catch (e) {}
+  Future<int> registerUserToFireStore(UserInfoModel userInfo) async {
+    try {
+      final authFireStore = Get.find<AuthFireStore>();
+
+      return await authFireStore.registerUser(userModel: userInfo);
+    } on FirebaseException catch (e) {
+      throw CloudStorageException.fromFireStoreException(e);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> openGmail() async => Get.find<GmailLauncher>().launchGmail();

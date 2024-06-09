@@ -1,4 +1,4 @@
 class AppKeys {
-  static const String userInfo = 'com.usmantech.userInfo';
-  static const String userVerification = 'com.usmantech.userVerification';
+  static const String userInfoKey = 'user_info';
+  static const String userVerifyKey = 'user_verification';
 }

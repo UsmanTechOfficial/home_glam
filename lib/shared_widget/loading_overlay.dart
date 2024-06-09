@@ -4,6 +4,7 @@ import 'package:home_glam/consts/global_var.dart';
 
 class LoadingOverlay extends StatelessWidget {
   final RxBool isLoading;
+  final EdgeInsets? padding;
   final Widget child;
   final Duration delay;
 
@@ -12,6 +13,7 @@ class LoadingOverlay extends StatelessWidget {
     required this.isLoading,
     required this.child,
     this.delay = const Duration(milliseconds: 500),
+    this.padding,
   });
 
   @override
@@ -19,7 +21,10 @@ class LoadingOverlay extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        child,
+        Padding(
+          padding: padding ?? EdgeInsets.zero,
+          child: child,
+        ),
         Obx(
           () {
             return AnimatedOpacity(

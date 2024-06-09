@@ -35,9 +35,10 @@ class SignUpController extends GetxController {
   }) async {
     try {
       onLoadingState();
+
       final User? user = await _authRepository.signUp(userInfo, password);
       if (user != null && !user.emailVerified) {
-        await _authRepository.storeUserInfo(userInfo);
+        await _authRepository.storeUserInfo(userInfo, user.emailVerified);
         Get.toNamed(Routes.EMAIL_VERIFY, arguments: user);
       }
     } finally {

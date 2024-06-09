@@ -52,7 +52,7 @@ TextStyle _textStyle({Color? color, double? fontSize}) {
 }
 
 OutlineInputBorder _outlineInputBorder(
-    {double borderRadius = AppConstants.borderRadius,
+    {double borderRadius = AppConsts.borderRadius,
     required Color borderColor}) {
   return OutlineInputBorder(
       borderRadius: BorderRadius.circular(borderRadius),

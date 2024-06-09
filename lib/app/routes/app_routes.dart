@@ -11,6 +11,8 @@ abstract class Routes {
   static const LOGIN = _Paths.LOGIN;
   static const SIGNUP = _Paths.SIGNUP;
   static const EMAIL_VERIFY = _Paths.EMAIL_VERIFY;
+  static const DASHBOARD = _Paths.DASHBOARD;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -23,4 +25,6 @@ abstract class _Paths {
   static const LOGIN = '/login';
   static const SIGNUP = '/signUp';
   static const EMAIL_VERIFY = '/email-verify';
+  static const DASHBOARD = '/dashboard';
+  static const SPLASH = '/splash';
 }

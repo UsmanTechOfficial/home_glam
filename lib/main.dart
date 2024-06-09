@@ -1,17 +1,32 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:home_glam/app/core/services/service_injections.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:home_glam/app/core/services/dependency_injection.dart';
 import 'package:home_glam/theme/theme.dart';
+import 'package:home_glam/utils/logger.dart';
 
 import 'app/routes/app_pages.dart';
 import 'firebase_options.dart';
 import 'generated/locales.g.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await _initializeServices();
   runApp(const MyApp());
+}
+
+Future<void> _initializeServices() async {
+  try {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+    //Logger.d("Firebase Initialized");
+
+    await GetStorage.init();
+    //Logger.d("GetStorage Initialized");
+  } catch (e) {
+    Logger.e("Error initializing services: $e");
+  }
 }
 
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -26,8 +41,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -38,11 +53,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      print('App is resumed');
-    } else if (state == AppLifecycleState.paused) {
-      // App is paused, handle the transition
-      print('App is paused');
+    switch (state) {
+      case AppLifecycleState.resumed:
+        Logger.i('App is resumed');
+        break;
+      case AppLifecycleState.paused:
+        Logger.i('App is paused');
+        break;
+      default:
+        break;
     }
   }
 
@@ -58,13 +77,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       darkTheme: AppTheme.instance.dark,
       themeMode: ThemeMode.system,
       defaultTransition: Transition.rightToLeft,
-      // transitionDuration: const Duration(milliseconds: 200),
       getPages: AppPages.routes,
-      initialRoute: Routes.LOGIN,
+      initialRoute: AppPages.INITIAL,
+      initialBinding: AppBindings(),
       smartManagement: SmartManagement.keepFactory,
       scaffoldMessengerKey: scaffoldMessengerKey,
-      initialBinding: AppBindings(),
-      // home: const SplashView(),
     );
   }
 }

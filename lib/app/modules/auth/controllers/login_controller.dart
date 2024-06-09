@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_glam/utils/custom_snackbar.dart';
 
+import '../../../routes/app_pages.dart';
 import '../repositories/auth_repository.dart';
 
 class LogInController extends GetxController {
@@ -23,26 +24,40 @@ class LogInController extends GetxController {
   final emailFocus = FocusNode();
   final passwordFocus = FocusNode();
 
-  Future<void> logIn({required String email, required String password}) async {
+  logIn({required String email, required String password}) async {
     try {
       onLoadingState();
       User? user = await _authRepository.logIn(email, password);
       if (user != null && !user.emailVerified) {
         CSnackBar.show("Email not verified");
         _authRepository.openGmail();
-        // Get.toNamed(Routes.EMAIL_VERIFY, arguments: user);
+        Get.toNamed(Routes.EMAIL_VERIFY, arguments: user);
       }
     } finally {
       offLoadingState();
     }
   }
 
-  onLoadingState() {
+  removeUser() async {
+    try {
+      _authRepository.removeLocalUser();
+    } finally {}
+  }
+
+  deleteAccount() async {
+    try {
+      _authRepository.deleteUserAccount();
+    } finally {}
+  }
+
+  bool onLoadingState() {
     unFocus();
     return isLoading.value = true;
   }
 
-  offLoadingState() => isLoading.value = false;
+  bool offLoadingState() => isLoading.value = false;
+
+  void psdObsToggle() => psdObs.value = !psdObs.value;
 
   void unFocus() {
     emailFocus.unfocus();
@@ -50,13 +65,11 @@ class LogInController extends GetxController {
   }
 
   @override
-  void onClose() {
+  onClose() {
     emailController.dispose();
     pswController.dispose();
     emailFocus.dispose();
     passwordFocus.dispose();
     super.onClose();
   }
-
-  psdObsToggle() => psdObs.value = !psdObs.value;
 }

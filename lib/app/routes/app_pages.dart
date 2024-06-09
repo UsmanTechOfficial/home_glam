@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import 'package:home_glam/app/modules/dashboard/bindings/dashboard_binding.dart';
+import 'package:home_glam/app/modules/dashboard/views/dashboard_view.dart';
+import 'package:home_glam/app/modules/splash/bindings/splash_binding.dart';
+import 'package:home_glam/app/modules/splash/views/splash_view.dart';
 
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/login_view.dart';
@@ -19,11 +23,10 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ONBOARDING;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
-      transitionDuration: const Duration(seconds: 1),
       name: _Paths.ONBOARDING,
       page: () => const OnboardingView(),
       binding: OnboardingBinding(),
@@ -57,6 +60,16 @@ class AppPages {
       name: _Paths.EMAIL_VERIFY,
       page: () => const EmailVerifyView(),
       binding: EmailVerifyBinding(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => const DashboardView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH,
+      page: () => const SplashView(),
+      binding: SplashBinding(),
     ),
   ];
 }
